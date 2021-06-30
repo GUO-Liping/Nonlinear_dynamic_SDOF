@@ -67,51 +67,66 @@ def func_p(para):
 		raise ValueError
 
 m = 0.1
-c_0 = 0.2
+c = 0.2
 
 t = 0
 t_s = 0.1
+t_total = 1.0
+n_t = int(t_total/t_s)+1
 
-u_0 = 0
+u = 0
 u_y = 1.2
-u_m = 2.688
+u_m = 0
 
-v_0 = 0
+v = 0
+u_array = np.zeros(n_t)
+t_array = np.zeros(n_t)
+i = 0
+while(t<1.0 and i<1e3):
+	u_array[i] = u
+	t_array[i] = t
+	p = func_p(t)
+	f_S = func_f_S(u,v,u_y,u_m)
+	f_D = func_f_D(v)
 
-while(t<1.0):
-
-	p_0 = func_p(t)
-	f_S0 = func_f_S(u_0,v_0,u_y,u_m)
-	f_D0 = func_f_D(v_0)
-
-	a_0 = 1/m * (p_0 - f_D0 - f_S0)
-	k_0 = func_k(u_0,v_0,u_y,u_m)
-	k_d = k_0 + 3*c_0/t_s + 6*m/(t_s**2)
+	a = 1/m * (p - f_D - f_S)
+	k = func_k(u,v,u_y,u_m)
+	k_d = k + 3*c/t_s + 6*m/(t_s**2)
 
 	delta_p = func_p(t+t_s) - func_p(t)
-	delta_p_d = delta_p + m*(6*v_0/t_s + 3*a_0) + c_0*(3*v_0 + t_s*a_0/2)
+	delta_p_d = delta_p + m*(6*v/t_s + 3*a) + c*(3*v + t_s*a/2)
 
 	delta_u = delta_p_d/k_d
-	delta_v = 3*delta_u/t_s - 3*v_0 - t_s*a_0/2
+	delta_v = 3*delta_u/t_s - 3*v - t_s*a/2
 
 	print(
-	 '\t', 	't=', format(t, '.3f'), 
-	 '\t', 	'p=', format(p_0, '.3f'), 
-	 '\t', 	'k=', format(k_0, '.3f'), 
+	 '\t', 't=',   format(t, '.3f'), 
+	 '\t', 'p=',   format(p, '.3f'), 
+	 '\t', 'k=',   format(k, '.3f'), 
 	 '\t', 'k_d=', format(k_d, '.3f'),
-	 '\t','u=', format(u_0, '.3f'), 
-	 '\t','v=', format(v_0, '.3f'),
-	 '\t','a=', format(a_0, '.3f'),
-	 '\t','du=', format(delta_u, '.3f'), 
-	 '\t','dv=', format(delta_v, '.3f'),
-	 '\t','f_S0=', format(f_S0, '.3f'),
-	 '\t','f_D0=', format(f_D0, '.3f')
+	 '\t', 'u=',   format(u, '.3f'), 
+	 '\t', 'v=',   format(v, '.3f'),
+	 '\t', 'a=',   format(a, '.3f'),
+	 '\t', 'du=',  format(delta_u, '.3f'), 
+	 '\t', 'dv=',  format(delta_v, '.3f'),
+	 '\t', 'f_S=', format(f_S, '.3f'),
+	 '\t', 'f_D=', format(f_D, '.3f')
 	 )
 
-	u_0 = u_0 + delta_u
-	v_0 = v_0 + delta_v
+	u = u + delta_u
+	v = v + delta_v
 
+	if u<u_m:
+		u_m = u_m
+	elif u >= u_m:
+		u_m = u
+	else:
+		raise ValueError
+
+	print('u_m=',u_m)
+	
 	t = t + t_s
+	i = i + 1
 
-#plt.plot(t,u_0,'*')
-#plt.show()
+plt.plot(t_array,u_array,'-*')
+plt.show()
