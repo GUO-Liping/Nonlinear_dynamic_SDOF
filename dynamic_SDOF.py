@@ -1,3 +1,6 @@
+# Ben Cheng Xu Yong Yu Qiu Jie
+#"Jie Gou Dong Li Xue -Di 2 Ban"
+#Zhong Yi Dao Li Ti. Zhe dao li ti tong shi she ji cai liao fei xian xing yu zu ni fei xian xing.
 import numpy as np
 import matplotlib.pyplot as plt
 
