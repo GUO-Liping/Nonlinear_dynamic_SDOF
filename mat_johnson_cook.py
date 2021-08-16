@@ -7,11 +7,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 A = 1500
-B = 1500
+B = 5000
 C = 1
 epsilon_p = np.arange(0,0.072,step = 0.001)
-N = 0.5
-epsilon_star_dot = 0.5
+N = 1
+epsilon_star_dot = 1
 eps0 = 100
 sigma_y = (A+B*epsilon_p**N) * (1+C*np.log(epsilon_star_dot))
 sig_max = 0.06
