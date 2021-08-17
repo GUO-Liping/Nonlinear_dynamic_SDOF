@@ -1,8 +1,5 @@
 # -*- coding:-utf-8 -*-
-# This programme aims at sovling the SDOF problems in
-#"Dynamics of Structures  - 2nd Edition" example E7-2
-#Impact force, Nonlinear stiffiness and nonlinear damp related.
-# Numerical Solution
+# 本程序用于
 import numpy as np
 import matplotlib.pyplot as plt
 
