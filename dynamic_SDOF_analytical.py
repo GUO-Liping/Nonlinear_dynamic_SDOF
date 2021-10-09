@@ -6,31 +6,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 t1 = 0.1
-t_end = 5
-t_step = 0.01
+t_end = 0.5
+t_step = 0.002
 
 t_I = np.arange(0, t1+0.5*t_step, step=t_step)
 t_II = np.arange(t1, t_end, step=t_step)
 
-mass = 5
-k = 500
+s = 5
+k = 12000
 xi = 0.1
-omega = np.sqrt(k/mass)
+omega = np.sqrt(k/s)
 omega_D = omega*np.sqrt(1-xi**2)
 
-p0 = 500
+p_0 = 500
 omega_p = np.pi/t1
 beta = omega_p/omega
 
 # 以下为第一阶段，第一阶段正弦波脉冲荷载作用下结构发生强迫振动
-u0 =0
-v0 = 0
+u0 =0.1
+v0 = 0.5
 
 A = u0
 B = (v0+u0*xi*omega)/omega_D
 
-G1 = p0/k * (-2*xi*beta)/((1-beta**2)**2+(2*xi*beta)**2)
-G2 = p0/k * (1-beta**2) /((1-beta**2)**2+(2*xi*beta)**2)
+G1 = p_0/k * (-2*xi*beta)/((1-beta**2)**2+(2*xi*beta)**2)
+G2 = p_0/k * (1-beta**2) /((1-beta**2)**2+(2*xi*beta)**2)
 
 item1 = np.cos(omega_D*t_I)
 item2 = np.sin(omega_D*t_I)
