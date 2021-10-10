@@ -12,10 +12,10 @@ t_step = 0.002
 t_I = np.arange(0, t1+0.5*t_step, step=t_step)
 t_II = np.arange(t1, t_end, step=t_step)
 
-s = 5
+m = 5
 k = 12000
 xi = 0.1
-omega = np.sqrt(k/s)
+omega = np.sqrt(k/m)
 omega_D = omega*np.sqrt(1-xi**2)
 
 p_0 = 500
@@ -23,7 +23,7 @@ omega_p = np.pi/t1
 beta = omega_p/omega
 
 # 以下为第一阶段，第一阶段正弦波脉冲荷载作用下结构发生强迫振动
-u0 =0.1
+u0 =0.5
 v0 = 0.5
 
 A = u0
